@@ -20,8 +20,8 @@ const MapComponent = ({ modelPath }) => {
             map.current = new mapboxgl.Map({
                 container: mapContainer.current,
                 style: 'mapbox://styles/mapbox/satellite-streets-v12',
-                zoom: 18,
-                center: [148.9819, -35.3981],
+                zoom: 17,
+                center: [148.9819, -35.39847],
                 pitch: viewMode === "3D" ? 60 : 0,
                 antialias: true
             });
@@ -50,6 +50,8 @@ const MapComponent = ({ modelPath }) => {
         const modelOrigin = [148.9819, -35.39847];
         const modelAltitude = 0;
         const modelRotate = [Math.PI / 2, 0, 0];
+
+        map.setCenter(modelOrigin);
 
         const modelAsMercatorCoordinate = mapboxgl.MercatorCoordinate.fromLngLat(
             modelOrigin,
@@ -145,8 +147,8 @@ const MapComponent = ({ modelPath }) => {
     const getLoader = (modelPath) => {
         const extension = modelPath.split('.').pop().toLowerCase();
         switch (extension) {
-            case 'gltf':
             case 'glb':
+            case 'gltf':
                 return new GLTFLoader();
             case 'obj':
                 return new OBJLoader();
