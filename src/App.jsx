@@ -12,8 +12,11 @@ const App = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const fileURL = URL.createObjectURL(file);
-            setFilePath(fileURL);
+            console.log("File :", file)
+            // const fileURL = URL.createObjectURL(file);
+            // console.log("FILE URL: ",fileURL);
+            setFilePath(file);
+            
         }
     };
 

@@ -87,6 +87,7 @@ const MapComponent = ({ modelPath }) => {
                 const loader = getLoader(modelPath);
                 if (loader) {
                     loader.load(modelPath, (model) => {
+                        console.log("Model loaded:", model);
                         this.scene.add(model.scene || model);
                     });
                 }
@@ -145,7 +146,11 @@ const MapComponent = ({ modelPath }) => {
     };
 
     const getLoader = (modelPath) => {
-        const extension = modelPath.split('.').pop().toLowerCase();
+        console.log(modelPath)
+        if(modelPath.name){
+            const extension = modelPath.name.split('.').pop().toLowerCase();
+            console.log("EXtension: ", extension);
+                    
         switch (extension) {
             case 'glb':
             case 'gltf':
@@ -161,6 +166,27 @@ const MapComponent = ({ modelPath }) => {
             default:
                 console.error('Unsupported model format');
                 return null;
+        }
+        }else{
+        const extension = modelPath.split('.').pop().toLowerCase();
+        console.log("EXtension: ", extension);
+                    
+        switch (extension) {
+            case 'glb':
+            case 'gltf':
+                return new GLTFLoader();
+            case 'obj':
+                return new OBJLoader();
+            case 'ply':
+                return new PLYLoader();
+            case 'fbx':
+                return new FBXLoader();
+            case 'stl':
+                return new STLLoader();
+            default:
+                console.error('Unsupported model format');
+                return null;
+        }
         }
     };
 
